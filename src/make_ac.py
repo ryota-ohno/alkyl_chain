@@ -182,7 +182,7 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict,machine_type,isInterlayer):
     phi1 = params_dict.get('phi1',0.0); phi2 = -1*phi1##params_dict.get('phi2',0.0)
     print(phi1, phi2)
     
-    monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,0,0,A3, phi1)
+    monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,A1,A2,A3, phi1)
     if a_>b_:
         monomer_array_p1 = get_monomer_xyzR(monomer_name,0,b_,R4,A1,A2,A3, phi1)##p1がb方向
         monomer_array_ip1 = get_monomer_xyzR(monomer_name,c[0],c[1]+b_,c[2]+R4,0,0,A3, phi1)
@@ -219,7 +219,7 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict,machine_type,isInterlayer):
     #dimer_array_ip3 = np.concatenate([monomer_array_i,monomer_array_ip3])
     #dimer_array_ip4 = np.concatenate([monomer_array_i,monomer_array_ip4])
     
-    file_description = '{}_A3={}_R3={}_R4={}'.format(monomer_name,round(A3,2),round(R3,2),round(R4,2))
+    file_description = '{}_A3={}_A1={}_A2={}'.format(monomer_name,round(A3,2),round(A1,2),round(A2,2))
     line_list_dimer_p1 = get_xyzR_lines(dimer_array_p1,machine_type,file_description+'_p1')
     #line_list_dimer_p2 = get_xyzR_lines(dimer_array_p2,file_description+'_p2')
     line_list_dimer_t1 = get_xyzR_lines(dimer_array_t1,machine_type,file_description+'_t1')
