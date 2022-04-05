@@ -21,6 +21,16 @@ def get_E_mono(path_file):
     E = lines_E[1]+1058790
     return E
 
+def get_E_mono_1(path_file):
+    with open(path_file,'r') as f:
+        lines=f.readlines()
+    lines_E=[]
+    for line in lines:
+        if line.find('E(R')>-1 and len(line.split())>5:
+            lines_E.append(float(line.split()[4])*627.510)
+    E = lines_E[-1]+1058780
+    return E
+
 def squeeze_min_df_E(df_E,columns=['A1','A2']):
     ddf = df_E.groupby(columns)
     df_Emin = df_E.loc[ddf['E'].idxmin(),:]
