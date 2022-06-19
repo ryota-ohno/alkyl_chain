@@ -79,7 +79,7 @@ def listen(auto_dir,monomer_name,num_nodes,isTest):##args自体を引数に取�
     df_queue = df_E.loc[df_E['status']=='InProgress',['machine_type','file_name']]
     machine_type_list = df_queue['machine_type'].values.tolist()
     len_queue = len(df_queue)
-    maxnum_machine2 = 1#int(num_nodes/2) ##3にする
+    maxnum_machine2 = 3#int(num_nodes/2) ##3にする
     
     for idx,row in zip(df_queue.index,df_queue.values):
         machine_type,file_name = row
