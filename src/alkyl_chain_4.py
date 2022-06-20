@@ -188,7 +188,7 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
     a = init_params_dict['a']; b = init_params_dict['b']; phi1_init_prev = init_params_dict['phi1']; phib = init_params_dict['phib']
     while True:
         E_list=[];phi1_list=[]
-        for phi1 in [phi1_init_prev-1,phi1_init_prev,phi1_init_prev+0.5]:
+        for phi1 in [phi1_init_prev-1,phi1_init_prev,phi1_init_prev+1]:
             phi1 = int(phi1)
             theta=np.round(theta,1)
             df_val_phi1 = df_val[(df_val['a']==a)&(df_val['b']==b)&(df_val['theta']==theta)&(df_val['phi1']==phi1)&(df_val['phib']==phib)&(df_val['status']=='Done')]
