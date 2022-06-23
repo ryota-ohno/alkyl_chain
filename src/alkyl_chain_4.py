@@ -194,7 +194,7 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
             df_val_phi1 = df_val[(df_val['a']==a)&(df_val['b']==b)&(df_val['theta']==theta)&(df_val['phi1']==phi1)&(df_val['phib']==phib)&(df_val['status']=='Done')]
             if len(df_val_phi1)==0:
                 return False,{'phi1':phi1}
-            phi1_list.append(theta);E_list.append(df_val_phi1['E'].values[0])
+            phi1_list.append(phi1);E_list.append(df_val_phi1['E'].values[0])
         phi1_init = phi1_list[np.argmin(np.array(E_list))]
         if phi1_init == phi1_init_prev:
             return True,{'phi1':phi1_init}
