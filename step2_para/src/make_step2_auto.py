@@ -70,9 +70,9 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict):##計算する際のジョ�
         dimer_array_p1 = np.concatenate([monomer_array_i,monomer_array_p1])
     
         file_description = '{}_A1={}_A2={}_A3={}'.format(monomer_name,int(A1),int(A2),round(A3,2))##ファイル名の角度部分　位置情報はそれぞれ後で加える
-        line_list_dimer_p1 = get_xyzR_lines(dimer_array_p1,file_description+'_p1',machine_type=2)##2分子の計算ファイルの文章部分の作成　位置情報をファイル名に加えた
-        line_list_dimer_t1 = get_xyzR_lines(dimer_array_t1,file_description+'_t1',machine_type=2)
-        line_list_dimer_t4 = get_xyzR_lines(dimer_array_t4,file_description+'_t4',machine_type=2)
+        line_list_dimer_p1 = get_xyzR_lines(dimer_array_p1,file_description+'_p1',machine_type=1)##2分子の計算ファイルの文章部分の作成　位置情報をファイル名に加えた
+        line_list_dimer_t1 = get_xyzR_lines(dimer_array_t1,file_description+'_t1',machine_type=1)
+        line_list_dimer_t4 = get_xyzR_lines(dimer_array_t4,file_description+'_t4',machine_type=1)
         
 ##上で作った文章部分を結合して1か所の計算をまとめる
         
@@ -148,7 +148,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict,isTest):
     file_basename2 +='2'
     file_basename3 +='3'
 
-    cc_list1 = get_one_exe(file_basename1,machine_type=2)
+    cc_list1 = get_one_exe(file_basename1,machine_type=1)
     sh_filename1 = file_basename1 + '.r1'
     sh_path1 = os.path.join(inp_dir,sh_filename1)
     with open(sh_path1,'w') as f:
@@ -157,7 +157,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict,isTest):
         subprocess.run(['qsub',sh_path1])
     log_file_name1 = file_basename1 + '.log'
 
-    cc_list2 = get_one_exe(file_basename2,machine_type=2)
+    cc_list2 = get_one_exe(file_basename2,machine_type=1)
     sh_filename2 = file_basename2 + '.r1'
     sh_path2 = os.path.join(inp_dir,sh_filename2)
     with open(sh_path2,'w') as f:
@@ -166,7 +166,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict,isTest):
         subprocess.run(['qsub',sh_path2])
     log_file_name2 = file_basename2 + '.log'
     
-    cc_list3 = get_one_exe(file_basename3,machine_type=2)
+    cc_list3 = get_one_exe(file_basename3,machine_type=1)
     sh_filename3 = file_basename3 + '.r1'
     sh_path3 = os.path.join(inp_dir,sh_filename3)
     with open(sh_path3,'w') as f:
