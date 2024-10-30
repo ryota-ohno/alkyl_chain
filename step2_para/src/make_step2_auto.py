@@ -7,7 +7,7 @@ from utils import Rod, R2atom
 import subprocess
 
 ############################汎用関数###########################
-def get_monomer_xyzR(monomer_name,Ta,Tb,Tc,A2,A3,phi=0.0,isFF=False):
+def get_monomer_xyzR(monomer_name,Ta,Tb,Tc,A2,A3):
     T_vec = np.array([Ta,Tb,Tc])
     df_mono=pd.read_csv('~/Working/alkyl_chain/step2_para/monomer/{}.csv'.format(monomer_name))
     atoms_array_xyzR=df_mono[['X','Y','Z','R']].values
@@ -54,16 +54,16 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict):##計算する際のジョ�
     gij_xyz_lines1 = ['$ RunGauss\n']
     gij_xyz_lines2 = ['$ RunGauss\n']
     gij_xyz_lines3 = ['$ RunGauss\n']
-    monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,A1,A2,A3)##対称性よりs-pの面内は片方で十分
+    monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,A2,A3)##対称性よりs-pの面内は片方で十分
     z_list=[np.round(z,1) for z in np.linspace(np.round(-4,1),np.round(4,1),int(np.round(np.round(8,1)/0.1))+1)]
     for z in z_list:
         if a_>b_:
-            monomer_array_p1 = get_monomer_xyzR(monomer_name,0,b_,z,A1,A2,A3)
+            monomer_array_p1 = get_monomer_xyzR(monomer_name,0,b_,z,A2,A3)
         else:
-            monomer_array_p1 = get_monomer_xyzR(monomer_name,a_,0,z,A1,A2,A3)
+            monomer_array_p1 = get_monomer_xyzR(monomer_name,a_,0,z,A2,A3)
     
-        monomer_array_t1 = get_monomer_xyzR(monomer_name,a_/2,b_/2,z,-A1,A2,-A3)##誘導体はtが等価でないから4つつくる
-        monomer_array_t4 = get_monomer_xyzR(monomer_name,-a_/2,b_/2,z,-A1,A2,-A3)##誘導体はtが等価でないから4つつくる
+        monomer_array_t1 = get_monomer_xyzR(monomer_name,a_/2,b_/2,z,A2,-A3)##誘導体はtが等価でないから4つつくる
+        monomer_array_t4 = get_monomer_xyzR(monomer_name,-a_/2,b_/2,z,A2,-A3)##誘導体はtが等価でないから4つつくる
 
         dimer_array_t1 = np.concatenate([monomer_array_i,monomer_array_t1])##2分子の座標データを結合
         dimer_array_t4 = np.concatenate([monomer_array_i,monomer_array_t4])##2分子の座標データを結合
