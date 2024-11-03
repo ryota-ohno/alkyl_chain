@@ -37,8 +37,8 @@ def get_xyzR_lines(xyza_array,file_description):
     mol_len = len(xyza_array)//2
     atom_index = 0
     mol_index = 0
-    for x,y,z,a in xyza_array:
-        atom = a
+    for x,y,z,R in xyza_array:
+        atom = R2atom(R)
         mol_index = atom_index//mol_len + 1
         line = '{}(Fragment={}) {} {} {}\n'.format(atom,mol_index,x,y,z)     
         lines.append(line)
