@@ -9,7 +9,7 @@ from utils import get_E
 import argparse
 import numpy as np
 import random
-from make_step2_auto import exec_gjf
+from make_step2_auto_ import exec_gjf
 
 def submit_process(args):
     auto_dir = args.auto_dir
