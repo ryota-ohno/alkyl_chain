@@ -103,7 +103,7 @@ def end_process(args):
     log_filepath_1 = os.path.join(*[auto_dir,'gaussian',file_name_1])
     log_filepath_2 = os.path.join(*[auto_dir,'gaussian',file_name_2])
     log_filepath_3 = os.path.join(*[auto_dir,'gaussian',file_name_3])
-    rt_list=[np.round(rt,1) for rt in np.linspace(-np.round(4,1),np.round(4,1),int(np.round(np.round(8,1)/0.1))+1)]##t
+    rt_list=[np.round(rt,1) for rt in np.linspace(np.round(0,1),np.round(10,1),int(np.round(np.round(10,1)/0.1))+1)]##t
     E_list1=get_E(log_filepath_1)##t
     E_list2=get_E(log_filepath_2)##p
     E_list3=get_E(log_filepath_3)##p
