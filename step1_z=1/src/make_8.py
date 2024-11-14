@@ -90,7 +90,7 @@ def get_one_exe(file_name,machine_type):
 def make_xyzfile(monomer_name,params_dict,structure_type):
     a1 = params_dict.get('a1',0.0); z1 = params_dict.get('z1',0.0)
     a2 = params_dict.get('a2',0.0); b2 = params_dict.get('b2',0.0); z2 = params_dict.get('z2',0.0)
-    A1 = params_dict.get('A1',0.0); A2 = params_dict.get('A2',0.0); A3 = params_dict.get('A3',0.0)
+    A2 = params_dict.get('A2',0.0); A3 = params_dict.get('theta',0.0)
 
     monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,A2,A3)
     
@@ -129,7 +129,7 @@ def make_xyz(monomer_name,params_dict,structure_type):
 def make_gjf_xyz(auto_dir,monomer_name,params_dict,machine_type,structure_type):
     a1 = params_dict.get('a1',0.0); z1 = params_dict.get('z1',0.0)
     a2 = params_dict.get('a2',0.0); b2 = params_dict.get('b2',0.0); z2 = params_dict.get('z2',0.0)
-    A2 = params_dict.get('A2',0.0); A3 = params_dict.get('A3',0.0)
+    A2 = params_dict.get('A2',0.0); A3 = params_dict.get('theta',0.0)
 
     monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,A2,A3)
     
