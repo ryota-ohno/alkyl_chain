@@ -252,7 +252,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_1=pd.concat([df_E_1,df_newline_1],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
 
                 ## 2の実行　##
-                df_done_2_ = filter_df(df_E_2, {**params_dict2,'status':'Done'});df_inpr_2_ = filter_df(df_E_2, {**params_dict2,'status':'InProgress'});df_qw_2_ = filter_df(df_E_2, {**params_dict1,'status':'qw'})
+                df_done_2_ = filter_df(df_E_2, {**params_dict2,'status':'Done'});df_inpr_2_ = filter_df(df_E_2, {**params_dict2,'status':'InProgress'});df_qw_2_ = filter_df(df_E_2, {**params_dict2,'status':'qw'})
                 if (len(df_done_2_)>=1) or(len(df_inpr_2_)>=1) or (len(df_qw_2_)>=1):
                     continue
                 else:
@@ -272,7 +272,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_2=pd.concat([df_E_2,df_newline_2],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
-                df_done_3_ = filter_df(df_E_3, {**params_dict3,'status':'Done'});df_inpr_3_ = filter_df(df_E_3, {**params_dict3,'status':'InProgress'});df_qw_3_ = filter_df(df_E_3, {**params_dict1,'status':'qw'})
+                df_done_3_ = filter_df(df_E_3, {**params_dict3,'status':'Done'});df_inpr_3_ = filter_df(df_E_3, {**params_dict3,'status':'InProgress'});df_qw_3_ = filter_df(df_E_3, {**params_dict3,'status':'qw'})
                 if (len(df_done_3_)>=1) or (len(df_inpr_3_)>=1) or (len(df_qw_3_)>=1):
                     continue
                 else:
