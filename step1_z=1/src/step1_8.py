@@ -117,10 +117,10 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
 
     auto_csv = os.path.join(auto_dir,'step1.csv')
     df_E = pd.read_csv(auto_csv)
-    df_prg = df_E.loc[df_E['status']=='InProgress',fixed_param_keys+opt_param_keys_1+opt_param_keys_2+['machine_type']]
+    df_prg = df_E.loc[df_E['status']=='InProgress',fixed_param_keys+opt_param_keys_1+opt_param_keys_2]
     
     for idx,row in zip(df_prg.index,df_prg.values):
-        a1,y1,z1,a2,b2,z2,machine_type = row##ここでa1~z2をdictにするのも有り?
+        theta,a1,z1,a2,b2,z2 = row##ここでa1~z2をdictにするのも有り?
         file_name1=f'{monomer_name}_theta={theta}_a1={a1}_z1={z1}_1.log'##辞書をつくってそこにopt_1とopt_2でファイル名作成
         file_name2=f'{monomer_name}_theta={theta}_a2={a2}_b2={b2}_z2={z2}_2.log'
         file_name3=f'{monomer_name}_theta={theta}_a1={a1}_z1={z1}_a2={a2}_b2={b2}_z2={z2}_3.log'
