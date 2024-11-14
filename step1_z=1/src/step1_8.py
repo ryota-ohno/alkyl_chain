@@ -61,7 +61,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             len_prg_1-=1
             E1=float(E_list1[0])##8分子に向けてep1,ep2作成　ep1:b ep2:a
             df_E_1.loc[idx, ['E1','status']] = [E1,'Done']
-            df_E_1.to_csv(auto_csv,index=False)
+            df_E_1.to_csv(auto_csv_1,index=False)
             time.sleep(1)
             break#2つ同時に計算終わったりしたらまずいので一個で切る
     
