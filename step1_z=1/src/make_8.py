@@ -8,7 +8,7 @@ MONOMER_LIST = ["C5"]
 ############################汎用関数###########################
 def get_monomer_xyzR(monomer_name,Ta,Tb,Tc,A2,A3):
     T_vec = np.array([Ta,Tb,Tc])
-    df_mono=pd.read_csv('~/Working/alkyl_chain/step1_z=1/monomer/{}.csv'.format(monomer_name))
+    df_mono=pd.read_csv('~/Working/alkyl_chain/step1_z=1/monomer/{}_.csv'.format(monomer_name))
     atoms_array_xyzR=df_mono[['atom','x','y','z']].values
     
     ex = np.array([1.,0.,0.]); ey = np.array([0.,1.,0.]); ez = np.array([0.,0.,1.])
