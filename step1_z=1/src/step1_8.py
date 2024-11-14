@@ -72,7 +72,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     len_prg_2 = len(df_prg_2)
 
     for idx, row in df_prg_2.iterrows():
-        params_dict3_ = row[fixed_param_keys + opt_param_keys_2 + ['file_name']].to_dict()
+        params_dict2_ = row[fixed_param_keys + opt_param_keys_2 + ['file_name']].to_dict()
         file_name2=params_dict2_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath2 = os.path.join(*[auto_dir, 'gaussian', file_name2])
         if not(os.path.exists(log_filepath2)):
