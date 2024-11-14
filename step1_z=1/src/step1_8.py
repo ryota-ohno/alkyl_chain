@@ -47,7 +47,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     
     auto_csv_1 = os.path.join(auto_dir,'step1_1.csv');df_E_1 = pd.read_csv(auto_csv_1)
     df_prg_1 = df_E_1.loc[df_E_1['status']=='InProgress',fixed_param_keys+opt_param_keys_1+['machine_type','file_name']]
-    machine_type_list_1 = df_prg_1['machine_type'].values.tolist();len_prg_1=len(df_prg_1)
+    len_prg_1=len(df_prg_1)
     for idx, row in df_prg_1.iterrows():
         params_dict1_ = row[fixed_param_keys + opt_param_keys_1 + ['file_name']].to_dict()
         file_name1=params_dict1_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
@@ -58,7 +58,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
         if len(E_list1)!=1 :##get Eの長さは計算した分子の数
             continue
         else:
-            len_prg_1-=1;machine_type_list_1.remove(machine_type)
+            len_prg_1-=1
             E1=float(E_list1[0])##8分子に向けてep1,ep2作成　ep1:b ep2:a
             df_E_1.loc[idx, ['E1','status']] = [E1,'Done']
             df_E_1.to_csv(auto_csv,index=False)
@@ -69,7 +69,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     auto_csv_2 = os.path.join(auto_dir,'step1_2.csv')
     df_E_2 = pd.read_csv(auto_csv_2)
     df_prg_2 = df_E_2.loc[df_E_2['status']=='InProgress', fixed_param_keys+opt_param_keys_2+['machine_type','file_name']]
-    machine_type_list_2 = df_prg_2['machine_type'].values.tolist()
     len_prg_2 = len(df_prg_2)
 
     for idx, row in df_prg_2.iterrows():
@@ -83,7 +82,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             continue
         else:
             len_prg_2 -= 1
-            machine_type_list_2.remove(machine_type)
             E2 = float(E_list2[0])  # Updated to E2
             df_E_2.loc[idx, ['E2', 'status']] = [E2, 'Done']
             df_E_2.to_csv(auto_csv_2, index=False)  # Updated to auto_csv_2
@@ -94,7 +92,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     auto_csv_3 = os.path.join(auto_dir, 'step1_3.csv')
     df_E_3 = pd.read_csv(auto_csv_3)
     df_prg_3 = df_E_3.loc[df_E_3['status'] == 'InProgress', fixed_param_keys + opt_param_keys_1 + opt_param_keys_2 + ['machine_type','file_name']]
-    machine_type_list_3 = df_prg_3['machine_type'].values.tolist()
     len_prg_3 = len(df_prg_3)
 
     for idx, row in df_prg_3.iterrows():
@@ -108,7 +105,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             continue
         else:
             len_prg_3 -= 1
-            machine_type_list_3.remove(machine_type)
             E3 = float(E_list3[0]);E4 = float(E_list3[1])  # Updated to E3
             df_E_3.loc[idx, ['E3', 'E4', 'status']] = [E3, E4, 'Done']
             df_E_3.to_csv(auto_csv_3, index=False)  # Updated to auto_csv_3
