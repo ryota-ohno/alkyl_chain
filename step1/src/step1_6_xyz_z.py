@@ -5,7 +5,7 @@ import pandas as pd
 import time
 import sys
 sys.path.append(os.path.join(os.environ['HOME'],'Working/interaction/'))
-from make_6_xyz import exec_gjf##計算した点のxyzfileを出す
+from make_6_xyz_z import exec_gjf##計算した点のxyzfileを出す
 from utils import get_E
 import argparse
 import numpy as np
