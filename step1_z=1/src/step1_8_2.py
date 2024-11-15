@@ -374,8 +374,8 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
         para_list=[]
         for a1 in [a1_init_prev]:#-0.1,a1_init_prev,a1_init_prev+0.1]
             for z1 in [z1_init_prev]:
-                for a2 in [a2_init_prev]:
-                    for b2 in [b2_init_prev]:
+                for a2 in [a2_init_prev-0.1,a2_init_prev,a2_init_prev+0.1]:
+                    for b2 in [b2_init_prev-0.1,b2_init_prev,b2_init_prev+0.1]:
                         for z2 in [z2_init_prev]:
                             a1 = np.round(a1,1);z1 = np.round(z1,1)
                             a2 = np.round(a2,1);b2 = np.round(b2,1);z2 = np.round(z2,1)
