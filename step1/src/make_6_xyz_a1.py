@@ -28,7 +28,7 @@ def get_xyzR_lines(xyza_array,file_description):
     lines = [     
         '%mem=15GB\n',
         '%nproc=40\n',
-        '#P TEST pbepbe/6-311G** EmpiricalDispersion=GD3 counterpoise=2\n',###汎関数や基底関数系は適宜変更する
+        '#P TEST pbepbe/6-311G** EmpiricalDispersion=GD3BJ counterpoise=2\n',###汎関数や基底関数系は適宜変更する
         '\n',
         file_description+'\n',
         '\n',
