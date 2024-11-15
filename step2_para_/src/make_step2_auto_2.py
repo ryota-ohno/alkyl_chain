@@ -145,7 +145,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict,isTest):
     file_basename2 +='2'
     file_basename3 +='3'
 
-    cc_list1 = get_one_exe(file_basename1,machine_type=1)
+    cc_list1 = get_one_exe(file_basename1,machine_type=2)
     sh_filename1 = file_basename1 + '.r1'
     sh_path1 = os.path.join(inp_dir,sh_filename1)
     with open(sh_path1,'w') as f:
@@ -154,7 +154,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict,isTest):
         subprocess.run(['qsub',sh_path1])
     log_file_name1 = file_basename1 + '.log'
 
-    cc_list2 = get_one_exe(file_basename2,machine_type=1)
+    cc_list2 = get_one_exe(file_basename2,machine_type=2)
     sh_filename2 = file_basename2 + '.r1'
     sh_path2 = os.path.join(inp_dir,sh_filename2)
     with open(sh_path2,'w') as f:
@@ -163,7 +163,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict,isTest):
         subprocess.run(['qsub',sh_path2])
     log_file_name2 = file_basename2 + '.log'
     
-    cc_list3 = get_one_exe(file_basename3,machine_type=1)
+    cc_list3 = get_one_exe(file_basename3,machine_type=2)
     sh_filename3 = file_basename3 + '.r1'
     sh_path3 = os.path.join(inp_dir,sh_filename3)
     with open(sh_path3,'w') as f:

@@ -57,11 +57,8 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict):##計算する際のジョ�
     monomer_array_i = get_monomer_xyzR(monomer_name,0,0,0,A2,A3)##対称性よりs-pの面内は片方で十分
     z_list=[np.round(z,1) for z in np.linspace(np.round(0,1),np.round(4,1),int(np.round(np.round(4,1)/0.1))+1)]
     for z in z_list:
-        if a_>b_:
-            monomer_array_p1 = get_monomer_xyzR(monomer_name,0,b_,z,A2,A3)
-        else:
-            monomer_array_p1 = get_monomer_xyzR(monomer_name,a_,0,z,A2,A3)
-    
+        monomer_array_p1 = get_monomer_xyzR(monomer_name,0,b_,z,A2,A3)
+        
         monomer_array_t1 = get_monomer_xyzR(monomer_name,a_/2,b_/2,z,A2,-A3)##誘導体はtが等価でないから4つつくる
         monomer_array_t4 = get_monomer_xyzR(monomer_name,-a_/2,b_/2,z,A2,-A3)##誘導体はtが等価でないから4つつくる
 
