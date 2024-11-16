@@ -50,6 +50,7 @@ def listen(auto_dir,monomer_name,num_nodes,num_m2,isTest):##args自体を引数�
             E = 2*(Et1+Et4+Ep1+Ep2)##エネルギーの値も変える
             df_E.loc[idx, ['E_t1','E_t4','E_p1','E_p2','E','status']] = [Et1,Et4,Ep1,Ep2,E,'Done']
             df_E.to_csv(auto_csv,index=False)
+            time.sleep(1)
             break#2つ同時に計算終わったりしたらまずいので一個で切る
     isAvailable = len_queue < num_nodes 
     machine2IsFull = machine_type_list.count(2) >= maxnum_machine2
@@ -63,7 +64,7 @@ def listen(auto_dir,monomer_name,num_nodes,num_m2,isTest):##args自体を引数�
                 df_newline = pd.Series({**params_dict,'E':0.,'E_p1':0.,'E_p2':0.,'E_t1':0.,'E_t4':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
                 df_E=df_E.append(df_newline,ignore_index=True)
                 df_E.to_csv(auto_csv,index=False)
-                time.sleep(1)
+                time.sleep(2)
     
     init_params_csv=os.path.join(auto_dir, 'step1_init_params.csv')
     df_init_params = pd.read_csv(init_params_csv)
