@@ -19,6 +19,11 @@ def main_process(args):
         df_E = pd.DataFrame(columns = ['theta','a1','z1','E','E1','status'])##いじる
         df_E.to_csv(auto_csv_path,index=False)##step3を二段階でやる場合二段階目ではinitをやらないので念のためmainにも組み込んでおく
 
+    auto_csv_path1 = os.path.join(auto_dir,'step1_1.csv')
+    if not os.path.exists(auto_csv_path1):        
+        df_E_1 = pd.DataFrame(columns = ['theta','a1','z1','E1','machine_type','status','file_name'])##いじる
+        df_E_1.to_csv(auto_csv_path1,index=False)##step3を二段階でやる場合二段階目ではinitをやらないので念のためmainにも組み込んでおく
+
     os.chdir(os.path.join(args.auto_dir,'gaussian'))
     isOver = False
     while not(isOver):
