@@ -103,6 +103,7 @@ def get_params_dict(auto_dir, num_nodes):
             df_init_params = update_value_in_df(df_init_params,index,'status','InProgress')
             df_init_params.to_csv(init_params_csv,index=False)
             params_dict = df_init_params.loc[index,fixed_param_keys+opt_param_keys].to_dict()
+            time.sleep(1)
             return params_dict
     for index in df_init_params.index:
         df_init_params = pd.read_csv(init_params_csv)
