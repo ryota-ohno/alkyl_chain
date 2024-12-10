@@ -123,9 +123,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
         if (len(s1) == 0) or (len(s2) == 0) or (len(s3) == 0):
             continue
         file_name1 = str(s1.values[0]);file_name2 = str(s2.values[0]);file_name3 = str(s3.values[0])
-        #print(file_name1)
         log_filepath1 = os.path.join(*[auto_dir,'gaussian',file_name1])
-        #print(log_filepath1)
         if not(os.path.exists(log_filepath1)):#logファイルが生成される直前だとまずいので
             continue
         E_list1=get_E(log_filepath1)
@@ -216,7 +214,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     dict_matrix = get_params_dict(auto_dir,num_nodes)##更新分を流す a1~z2まで取得
     if len(dict_matrix)!=0:#終わりがまだ見えないなら
         for i in range(len(dict_matrix)):
-            params_dict=dict_matrix[i]#print(params_dict)
+            params_dict=dict_matrix[i]
             params_dict1 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_1)}
             params_dict2 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_2)}
             params_dict3 = params_dict
@@ -225,7 +223,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 df_E= pd.read_csv(os.path.join(auto_dir,'step1.csv'))
                 df_E_filtered = filter_df(df_E, params_dict)
                 if len(df_E_filtered) == 0:
-                    df_newline = pd.Series({**params_dict,'E':0.,'E1':0.,'E2':0.,'E3':0.,'status':'InProgress'})
+                    df_newline = pd.Series({**params_dict,'E':0.,'E1':0.,'E2':0.,'E3':0.,'E4':0.,'status':'InProgress'})
                     df_E_new=pd.concat([df_E,df_newline.to_frame().T],axis=0,ignore_index=True);df_E_new.to_csv(auto_csv,index=False)
                 
                 ## 1の実行　##
@@ -233,7 +231,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 df_sub_1 = filter_df(df_E_1, params_dict1)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_1) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
-                    print('debug1')
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
                         machine2IsFull = num_machine2 >= maxnum_machine2
@@ -254,7 +251,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 df_sub_2 = filter_df(df_E_2, params_dict2)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_2) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
-                    print('debug2')
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
                         machine2IsFull = num_machine2 >= maxnum_machine2
@@ -275,7 +271,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 df_sub_3 = filter_df(df_E_3, params_dict3)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_3) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
-                    print('debug3')
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
                         machine2IsFull = num_machine2 >= maxnum_machine2
@@ -322,7 +317,6 @@ def get_params_dict(auto_dir, num_nodes):
     
     #最初の立ち上がり時
     if len(df_init_params_inprogress) < num_nodes:
-        #print(1)
         df_init_params_notyet = df_init_params[df_init_params['status']=='NotYet']
         for index in df_init_params_notyet.index:
             df_init_params = update_value_in_df(df_init_params,index,'status','InProgress')
@@ -362,7 +356,6 @@ def get_params_dict(auto_dir, num_nodes):
                             }
                 d={**fixed_params_dict,**opt_params_dict}
                 dict_matrix.append(d)
-                    #print(d)
     return dict_matrix
         
 def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
@@ -387,7 +380,6 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
                                 continue
                             xyz_list.append([a1,z1,a2,b2,z2]);E_list.append(df_val_xyz['E'].values[0])
         if len(para_list) != 0:
-            print(para_list)
             return False,para_list
         a1_init,z1_init,a2_init,b2_init,z2_init = xyz_list[np.argmin(np.array(E_list))]
         if a1_init==a1_init_prev and z1_init==z1_init_prev and a2_init==a2_init_prev and b2_init==b2_init_prev and z2_init==z2_init_prev:
