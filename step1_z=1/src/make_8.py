@@ -33,7 +33,7 @@ def get_xyzR_lines(xyzR_array,file_description,machine_type):
     lines = [     
         '%mem=15GB\n',
         f'%nproc={mp_num}\n',
-        '#P TEST pbepbe/6-311G** EmpiricalDispersion=GD3BJ counterpoise=2\n',
+        '#pbepbe/6-311G** EmpiricalDispersion=GD3BJ counterpoise=2\n',
         '\n',
         file_description+'\n',
         '\n',
