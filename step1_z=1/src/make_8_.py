@@ -9,19 +9,18 @@ MONOMER_LIST = ["C5"]
 def get_monomer_xyzR(monomer_name,Ta,Tb,Tc,A2,A3):
     T_vec = np.array([Ta,Tb,Tc])
     df_mono=pd.read_csv('~/Working/alkyl_chain/step1_z=1/monomer/{}_re.csv'.format(monomer_name))
-    atoms_array_xyzR=df_mono[['atom','x','y','z']].values
+    atoms_array_xyzR=df_mono[['X','Y','Z','R']].values
     
     ex = np.array([1.,0.,0.]); ey = np.array([0.,1.,0.]); ez = np.array([0.,0.,1.])
 
-    xyz_array = atoms_array_xyzR[:,1:]
+    xyz_array = atoms_array_xyzR[:,:3]
     xyz_array = np.matmul(xyz_array,Rod(-ex,A2).T)
     xyz_array = np.matmul(xyz_array,Rod(ez,A3).T)
     xyz_array = xyz_array + T_vec
-    atom_array = atoms_array_xyzR[:,0].reshape((-1,1))
+    R_array = atoms_array_xyzR[:,3].reshape((-1,1))
     
     if monomer_name in MONOMER_LIST:
-        return np.concatenate([atom_array,xyz_array],axis=1)
-    
+        return np.concatenate([xyz_array,R_array],axis=1)
     else:
         raise RuntimeError('invalid monomer_name={}'.format(monomer_name))
         
@@ -31,7 +30,7 @@ def get_xyzR_lines(xyzR_array,file_description,machine_type):
     elif machine_type==2:
         mp_num = 52
     lines = [     
-        '%mem=15GB\n',
+        '%mem=20GB\n',
         f'%nproc={mp_num}\n',
         '#B3LYP/6-311G** EmpiricalDispersion=GD3BJ counterpoise=2\n',
         '\n',
@@ -42,7 +41,8 @@ def get_xyzR_lines(xyzR_array,file_description,machine_type):
     mol_len = len(xyzR_array)//2
     atom_index = 0
     mol_index = 0
-    for atom,x,y,z in xyzR_array:
+    for x,y,z,R in xyzR_array:
+        atom = R2atom(R)
         mol_index = atom_index//mol_len + 1
         line = '{}(Fragment={}) {} {} {}\n'.format(atom,mol_index,x,y,z)     
         lines.append(line)
