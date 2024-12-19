@@ -119,31 +119,17 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
         params_dict1_ = row[fixed_param_keys + opt_param_keys_1].to_dict()
         params_dict2_ = row[fixed_param_keys + opt_param_keys_2].to_dict()
         params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2].to_dict()
-        s1=filter_df(df_E_1, params_dict1_)['file_name'];s2=filter_df(df_E_2, params_dict2_)['file_name'];s3=filter_df(df_E_3, params_dict3_)['file_name']
+        s1=filter_df(df_E_1, params_dict1_);s2=filter_df(df_E_2, params_dict2_);s3=filter_df(df_E_3, params_dict3_)#['file_name']
+        s1=s1[s1['status']=='Done'];s2=s2[s2['status']=='Done'];s3=s3[s3['status']=='Done']
+    
         if (len(s1) == 0) or (len(s2) == 0) or (len(s3) == 0):
             continue
-        file_name1 = str(s1.values[0]);file_name2 = str(s2.values[0]);file_name3 = str(s3.values[0])
-        #print(file_name1)
-        log_filepath1 = os.path.join(*[auto_dir,'gaussian',file_name1])
-        #print(log_filepath1)
-        if not(os.path.exists(log_filepath1)):#logファイルが生成される直前だとまずいので
-            continue
-        E_list1=get_E(log_filepath1)
-        
-        log_filepath2 = os.path.join(*[auto_dir,'gaussian',file_name2])
-        if not(os.path.exists(log_filepath2)):#logファイルが生成される直前だとまずいので
-            continue
-        E_list2=get_E(log_filepath2)
-        
-        log_filepath3 = os.path.join(*[auto_dir,'gaussian',file_name3])
-        if not(os.path.exists(log_filepath3)):#logファイルが生成される直前だとまずいので
-            continue
-        E_list3=get_E(log_filepath3)
-        
-        if (len(E_list1)!=1) or (len(E_list2)!=1) or (len(E_list3)!=2):##get Eの長さは計算した分子の数
-            continue
         else:
-            E1=float(E_list1[0]);E2=float(E_list2[0]);E3=float(E_list3[0]);E4=float(E_list3[1])##8分子に向けてep1,ep2作成　ep1:b ep2:a
+            E1 = s1['E1'].values.tolist()[0]
+            E2 = s2['E2'].values.tolist()[0]
+            E3 = s3['E3'].values.tolist()[0]
+            E4 = s3['E4'].values.tolist()[0]
+            
             E=E1+E2+E3+E4
             df_E.loc[idx, ['E','E1','E2','E3','E4','status']] = [E,E1,E2,E3,E4,'Done']
             df_E.to_csv(auto_csv,index=False)
