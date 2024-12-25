@@ -136,7 +136,7 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict,machine_type,structure_type):
     monomer_array_p1 = get_monomer_xyzR(monomer_name,a1,0,z1,A2,A3)##1,2がb方向
     monomer_array_p2 = get_monomer_xyzR(monomer_name,a2,b2,z2,A2,A3)##1,2がb方向
     monomer_array_t1 = get_monomer_xyzR(monomer_name,a1+a2,b2,z1+z2,A2,A3)##1,2がb方向
-    monomer_array_t2 = get_monomer_xyzR(monomer_name,a1-a2,-b2,z1-z1,A2,A3)##1,2がb方向
+    monomer_array_t2 = get_monomer_xyzR(monomer_name,a1-a2,-b2,z1-z2,A2,A3)##1,2がb方向
     
     dimer_array_p1 = np.concatenate([monomer_array_i,monomer_array_p1])
     dimer_array_p2 = np.concatenate([monomer_array_i,monomer_array_p2])
