@@ -141,13 +141,24 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     df_qw_1 = df_E_1[df_E_1['status'] == 'qw'];df_qw_2 = df_E_2[df_E_2['status'] == 'qw'];df_qw_3 = df_E_3[df_E_3['status'] == 'qw']
     len_queue = len_prg_1 + len_prg_2 + len_prg_3
     len_qw_1 = len(df_qw_1);len_qw_2 = len(df_qw_2);len_qw_3 = len(df_qw_3)
-    margin = max_nodes - len_queue;machine_type=3
+    margin = max_nodes - len_queue
+
+    df_inpr_1 = df_E_1.loc[df_E_1['status']=='InProgress'];df_inpr_2 = df_E_2.loc[df_E_2['status']=='InProgress'];df_inpr_3 = df_E_3.loc[df_E_3['status']=='InProgress']
+    machine_counts_1 = df_inpr_1['machine_type'].value_counts().to_dict();machine_counts_1.setdefault(1, 0);machine_counts_1.setdefault(2, 0)
+    machine_counts_2 = df_inpr_2['machine_type'].value_counts().to_dict();machine_counts_2.setdefault(1, 0);machine_counts_2.setdefault(2, 0)
+    machine_counts_3 = df_inpr_3['machine_type'].value_counts().to_dict();machine_counts_3.setdefault(1, 0);machine_counts_3.setdefault(2, 0)
+    num_machine2 = machine_counts_1.get(2, 0) + machine_counts_2.get(2, 0) + machine_counts_3.get(2, 0)
 
     if len_qw_1 > 0 and margin > 0:# 進行中ジョブのマシンタイプをカウント
         for index, row in df_qw_1.iterrows():
             if margin == 0:
                 break
             params_dict = row[fixed_param_keys + opt_param_keys_1].to_dict()# パラメータの辞書を作成
+            if num_machine2 >= maxnum_machine2:
+                machine_type = 1             
+            else:
+                machine_type = 2# マシンタイプの決定
+                num_machine2 += 1
             file_name = exec_gjf(auto_dir, monomer_name, {**params_dict}, machine_type, structure_type=1, isTest=isTest)# ジョブの実行 structure type
             len_queue += 1;margin -= 1
             df_E_1.at[index, 'machine_type'] = machine_type
@@ -161,7 +172,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             if margin == 0:
                 break
             params_dict = row[fixed_param_keys + opt_param_keys_2].to_dict()# パラメータの辞書を作成
-            
+            if num_machine2 >= maxnum_machine2:
+                machine_type = 1             
+            else:
+                machine_type = 2# マシンタイプの決定
+                num_machine2 += 1
             file_name = exec_gjf(auto_dir, monomer_name, {**params_dict}, machine_type, structure_type=2,isTest=isTest)# ジョブの実行
             len_queue += 1;margin -= 1
             df_E_2.at[index, 'machine_type'] = machine_type
@@ -175,7 +190,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             if margin == 0:
                 break
             params_dict = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2].to_dict()# パラメータの辞書を作成
-            
+            if num_machine2 >= maxnum_machine2:
+                machine_type = 1             
+            else:
+                machine_type = 2# マシンタイプの決定
+                num_machine2 += 1
             file_name = exec_gjf(auto_dir, monomer_name, {**params_dict}, machine_type, structure_type=3,isTest=isTest)# ジョブの実行
             len_queue += 1;margin -= 1
             df_E_3.at[index, 'machine_type'] = machine_type
@@ -207,13 +226,18 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                     print('debug1')
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
+                        machine2IsFull = num_machine2 >= maxnum_machine2
+                        if machine2IsFull:
+                            machine_type = 1
+                        else:
+                            machine_type = 2;num_machine2 += 1
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict1}, machine_type, structure_type=1,isTest=isTest);len_queue +=1
                         df_newline_1 = pd.Series({**params_dict1,'E1':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
                         time.sleep(1)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict1}, machine_type, structure_type=1,isTest=True)
-                        df_newline_1 = pd.Series({**params_dict1,'E1':0.,'machine_type':3,'status':'qw','file_name':file_name})
+                        df_newline_1 = pd.Series({**params_dict1,'E1':0.,'machine_type':1,'status':'qw','file_name':file_name})
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
                         time.sleep(1)
 
@@ -225,12 +249,17 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                     print('debug2')
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
+                        machine2IsFull = num_machine2 >= maxnum_machine2
+                        if machine2IsFull:
+                            machine_type = 1
+                        else:
+                            machine_type = 2;num_machine2 += 1
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type, structure_type=2,isTest=isTest);len_queue += 1
                         df_newline_2 = pd.Series({**params_dict2,'E2':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type, structure_type=2,isTest=True)
-                        df_newline_2 = pd.Series({**params_dict2,'E2':0.,'machine_type':3,'status':'qw','file_name':file_name})
+                        df_newline_2 = pd.Series({**params_dict2,'E2':0.,'machine_type':1,'status':'qw','file_name':file_name})
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
@@ -241,12 +270,17 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                     print('debug3')
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
+                        machine2IsFull = num_machine2 >= maxnum_machine2
+                        if machine2IsFull:
+                            machine_type = 1
+                        else:
+                            machine_type = 2;num_machine2 += 1
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict3}, machine_type, structure_type=3,isTest=isTest);len_queue +=1
                         df_newline_3 = pd.Series({**params_dict3,'E3':0.,'E4':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
                         df_E_new_3=pd.concat([df_E_3,df_newline_3.to_frame().T],axis=0,ignore_index=True);df_E_new_3.to_csv(auto_csv_3,index=False)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict3}, machine_type, structure_type=3,isTest=True)
-                        df_newline_3 = pd.Series({**params_dict3,'E3':0.,'E4':0.,'machine_type':3,'status':'qw','file_name':file_name})
+                        df_newline_3 = pd.Series({**params_dict3,'E3':0.,'E4':0.,'machine_type':1,'status':'qw','file_name':file_name})
                         df_E_new_3=pd.concat([df_E_3,df_newline_3.to_frame().T],axis=0,ignore_index=True);df_E_new_3.to_csv(auto_csv_3,index=False)
     
     init_params_csv=os.path.join(auto_dir, 'step1_init_params.csv')
