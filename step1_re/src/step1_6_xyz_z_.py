@@ -141,7 +141,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     df_qw_1 = df_E_1[df_E_1['status'] == 'qw'];df_qw_2 = df_E_2[df_E_2['status'] == 'qw'];df_qw_3 = df_E_3[df_E_3['status'] == 'qw']
     len_queue = len_prg_1 + len_prg_2 + len_prg_3
     len_qw_1 = len(df_qw_1);len_qw_2 = len(df_qw_2);len_qw_3 = len(df_qw_3)
-    margin = max_nodes - len_queue
+    margin = max_nodes - len_queue;machine_type = 1
 
     df_inpr_1 = df_E_1.loc[df_E_1['status']=='InProgress'];df_inpr_2 = df_E_2.loc[df_E_2['status']=='InProgress'];df_inpr_3 = df_E_3.loc[df_E_3['status']=='InProgress']
     machine_counts_1 = df_inpr_1['machine_type'].value_counts().to_dict();machine_counts_1.setdefault(1, 0);machine_counts_1.setdefault(2, 0)
