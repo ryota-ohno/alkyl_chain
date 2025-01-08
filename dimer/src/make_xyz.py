@@ -103,7 +103,7 @@ def make_xyzfile(monomer_name,params_dict):
     
     return xyz_list
 
-def make_xyz(monomer_name,params_dict,structure_type):
+def make_xyz(monomer_name,params_dict):
     xyzfile_name = ''
     xyzfile_name += monomer_name
     for key,val in params_dict.items():
@@ -112,7 +112,7 @@ def make_xyz(monomer_name,params_dict,structure_type):
         elif key in ['A1','A2','theta']:
             val = int(val)
         xyzfile_name += '_{}={}'.format(key,val)
-    return xyzfile_name + f'_{structure_type}.xyz'
+    return xyzfile_name + f'.xyz'
 
 def make_gjf_xyz(auto_dir,monomer_name,params_dict,machine_type):
     x = params_dict.get('x',0.0); y = params_dict.get('y',0.0); z = params_dict.get('z',0.0)
