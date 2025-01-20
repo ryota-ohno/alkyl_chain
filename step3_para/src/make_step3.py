@@ -172,7 +172,7 @@ def get_file_name_from_dict(monomer_name,params_dict):
             val = np.round(val,2)
         elif key in ['A1','theta1','theta2']:
             val = int(val)
-        xyzfile_name += '_{}={}'.format(key,val)
+        file_name += '_{}={}'.format(key,val)
     return file_name + '.inp'
     
 def exec_gjf(auto_dir, monomer_name, params_dict, machine_type,isTest=True):
