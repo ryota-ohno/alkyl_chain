@@ -99,7 +99,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_2,isTest):##args自体を引数�
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv,index=False)
                         time.sleep(1)
                     else:
-                        file_name = exec_gjf(auto_dir, monomer_name, {**params_dict1}, machine_type,isTest=True)
+                        file_name = exec_gjf(auto_dir, monomer_name, {**params_dict1}, machine_type=1,isTest=True)
                         df_newline_1 = pd.Series({**params_dict1,'E':0.,'machine_type':1,'status':'qw','file_name':file_name})
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv,index=False)
     
