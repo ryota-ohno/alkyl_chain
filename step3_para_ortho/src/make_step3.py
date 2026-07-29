@@ -44,7 +44,7 @@ def get_xyzR_lines(xyzR_array,file_description,machine_type):
     elif machine_type==2:
         mp_num = 52
     lines = [     
-        '%mem=20GB\n',
+        '%mem=30GB\n',
         f'%nproc={mp_num}\n',
         '#B3LYP/6-311G** EmpiricalDispersion=GD3BJ counterpoise=2\n',
         '\n',
@@ -105,7 +105,7 @@ def make_xyzfile(monomer_name,params_dict):
     a = params_dict.get('a',0.0); b = params_dict.get('b',0.0); z = params_dict.get('z',0.0)
     cy = params_dict.get('cy',0.0); cz = params_dict.get('cz',0.0)
     theta1 = params_dict.get('theta1',0.0);theta2 = params_dict.get('theta2',0.0)
-    A1=A1=math.atan(2*z/A1)
+    A1=math.atan(2*z/b)
     monomer_array_i = get_monomer_xyzR_(monomer_name,0,cy,cz,A1,theta2)
     monomer_array_0 = get_monomer_xyzR(monomer_name,0,0,0,A1,theta1)
     monomer_array_b1 = get_monomer_xyzR(monomer_name,0,b,2*z,A1,theta1)
@@ -141,7 +141,7 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict,machine_type):
     a = params_dict.get('a',0.0); b = params_dict.get('b',0.0); z = params_dict.get('z',0.0)
     cy = params_dict.get('cy',0.0); cz = params_dict.get('cz',0.0)
     theta1 = params_dict.get('theta1',0.0);theta2 = params_dict.get('theta2',0.0)
-    A1=A1=math.atan(2*z/A1)
+    A1=math.atan(2*z/b)
     monomer_array_i = get_monomer_xyzR_(monomer_name,0,cy,cz,A1,theta2)
     monomer_array_0 = get_monomer_xyzR(monomer_name,0,0,0,A1,theta1)
     monomer_array_b1 = get_monomer_xyzR(monomer_name,0,b,2*z,A1,theta1)
