@@ -190,7 +190,7 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
             for phi in [phi_init_prev]:
                 for r in [r_init_prev]:
                     for z in [z_init_prev]:
-                        theta = np.round(theta);phi = np.round(phi);r = np.round(r,1);z = np.round(z,1)
+                        theta = np.round(theta);phi = np.round(phi,1);r = np.round(r,1);z = np.round(z,1)
                         df_val_xyz = df_val[(df_val['theta']==theta)&(df_val['phi']==phi)&
                                             (df_val['r']==r)&(df_val['z']==z)&(df_val['status']=='Done')]
                         if len(df_val_xyz)==0:
