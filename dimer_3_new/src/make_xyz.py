@@ -107,9 +107,9 @@ def make_xyz(monomer_name,params_dict):
     xyzfile_name = ''
     xyzfile_name += monomer_name
     for key,val in params_dict.items():
-        if key in ['r','z']:
+        if key in ['r','z','phi']:
             val = np.round(val,1)
-        elif key in ['theta','phi']:
+        elif key in ['theta']:
             val = int(val)
         xyzfile_name += '_{}={}'.format(key,val)
     return xyzfile_name + f'.xyz'
@@ -139,9 +139,9 @@ def get_file_name_from_dict(monomer_name,params_dict):
     file_name = ''
     file_name += monomer_name
     for key,val in params_dict.items():
-        if key in ['r','z']:
+        if key in ['r','z','phi']:
             val = val
-        elif key in ['theta','phi']:
+        elif key in ['theta']:
             val = int(val)
         file_name += '_{}={}'.format(key,val)
     return file_name + '.inp'
